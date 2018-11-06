@@ -1,11 +1,10 @@
-package com.example.rtwm38.movieapp.ui;
+package com.example.rtwm38.movieapp;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +13,8 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 
 
-import com.example.rtwm38.movieapp.R;
 import com.example.rtwm38.movieapp.model.Movie;
+import com.example.rtwm38.movieapp.ui.MovieDetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.rtwm38.movieapp;
+package com.example.rtwm38.movieapp.ui;
 
 import android.app.SearchManager;
 import android.content.Context;
@@ -11,9 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.example.rtwm38.movieapp.R;
 import com.example.rtwm38.movieapp.model.Movie;
-import com.example.rtwm38.movieapp.network.MovieService;
-import com.example.rtwm38.movieapp.ui.MovieAdapter;
+import com.example.rtwm38.movieapp.network.MovieServiceApi;
+import com.example.rtwm38.movieapp.MovieAdapter;
 
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
@@ -51,7 +52,7 @@ public class MainActivity extends AppCompatActivity{
                 })
                 .setLogLevel(RestAdapter.LogLevel.FULL)
                 .build();
-        MovieService service = restAdapter.create(MovieService.class);
+        MovieServiceApi service = restAdapter.create(MovieServiceApi.class);
         service.getMoviesNowPlaying(new Callback<Movie.MovieResult>() {
             @Override
             public void success(Movie.MovieResult movieResult, Response response) {
