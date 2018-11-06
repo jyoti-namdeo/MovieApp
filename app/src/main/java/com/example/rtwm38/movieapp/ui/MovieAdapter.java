@@ -16,7 +16,6 @@ import android.widget.ImageView;
 
 import com.example.rtwm38.movieapp.R;
 import com.example.rtwm38.movieapp.model.Movie;
-import com.example.rtwm38.movieapp.viewcontroller.MovieViewHolder1;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,14 +27,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     private LayoutInflater mInflater;
     private Context mContext;
-    private ContactsAdapterListener listener;
 
-    public MovieAdapter(Context context, ContactsAdapterListener listener) {
+    public MovieAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
-        this.listener = listener;
-       // this.movieList = new ArrayList<>();
-        //movieListFiltered = new ArrayList<>();
     }
 
     public class MovieViewHolder extends RecyclerView.ViewHolder {
@@ -47,8 +42,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onContactSelected(movieListFiltered.get(getAdapterPosition()));
+                    int position = getAdapterPosition();
+                    Intent intent = new Intent(mContext, MovieDetailActivity.class);
+                    intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movieListFiltered.get(position));
+                    mContext.startActivity(intent);
                 }
             });
         }
@@ -58,18 +55,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     @Override
     public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = mInflater.inflate(R.layout.movie_row, viewGroup, false);
-        final MovieViewHolder viewHolder = new MovieViewHolder(view);
-
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int position = viewHolder.getAdapterPosition();
-                Intent intent = new Intent(mContext, MovieDetailActivity.class);
-                intent.putExtra(MovieDetailActivity.EXTRA_MOVIE, movieList.get(position));
-                mContext.startActivity(intent);
-            }
-        });
-
+        MovieViewHolder viewHolder = new MovieViewHolder(view);
         return viewHolder;
     }
 
@@ -89,10 +75,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
 
     public void setMovieList(final List<Movie> movieList)
     {
-/*        this.movieList.clear();
-        this.movieList.addAll(movieList);
-        this.movieListFiltered = movieList;
-        notifyDataSetChanged();*/
         if (this.movieList == null) {
             this.movieList = movieList;
             this.movieListFiltered = movieList;
@@ -134,36 +116,28 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
                 String charString = charSequence.toString();
+                FilterResults filterResults = new FilterResults();
                 if (charString.isEmpty()) {
-                    movieListFiltered = movieList;
+                    filterResults.values = movieList;
+                    filterResults.count = movieList.size();
                 } else {
                     List<Movie> filteredList = new ArrayList<>();
                     for (Movie movie : movieList) {
                         if (movie.getTitle().toLowerCase().contains(charString.toLowerCase())) {
-                            //Log.d("jyotitalkies", movie.getTitle()+"----"+charString);
                             filteredList.add(movie);
                         }
                     }
-                    movieListFiltered = filteredList;
+                    filterResults.values = filteredList;
+                    filterResults.count = filteredList.size();
                 }
-
-                FilterResults filterResults = new FilterResults();
-                //filterResults.count = filteredList.size();
-                filterResults.values = movieListFiltered;
                 return filterResults;
             }
 
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
                 movieListFiltered = (ArrayList<Movie>) filterResults.values;
-                Log.d("jyotitalkies", "result size is - "+filterResults.count);
-                movieList = (ArrayList<Movie>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
-    }
-
-    public interface ContactsAdapterListener {
-        void onContactSelected(Movie movie);
     }
 }

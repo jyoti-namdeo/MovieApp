@@ -24,7 +24,7 @@ import retrofit.RetrofitError;
 import retrofit.client.Response;
 import retrofit2.Call;
 
-public class MainActivity extends AppCompatActivity implements MovieAdapter.ContactsAdapterListener{
+public class MainActivity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     MovieAdapter mMovieAdapter;
     private SearchView searchView;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Cont
         setContentView(R.layout.activity_main);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        mMovieAdapter = new MovieAdapter(getApplicationContext(), );
+        mMovieAdapter = new MovieAdapter(this);
         mRecyclerView.setAdapter(mMovieAdapter);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -74,7 +74,6 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Cont
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
         searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        //searchView.setMaxWidth(Integer.MAX_VALUE);
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -106,10 +105,5 @@ public class MainActivity extends AppCompatActivity implements MovieAdapter.Cont
             return;
         }
         super.onBackPressed();
-    }
-
-    @Override
-    public void onContactSelected(Movie movie) {
-        Toast.makeText(getApplicationContext(), "Selected: " + movie.getTitle(), Toast.LENGTH_LONG).show();
     }
 }
