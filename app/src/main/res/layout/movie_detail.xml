@@ -14,28 +14,14 @@
         parent="Theme.AppCompat.NoActionBar"
         android:layout_width="match_parent"
      >
-
-<!--        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/toolbar_layout"
-            android:fitsSystemWindows="true"
-            android:layout_width="match_parent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            app:contentScrim="?attr/colorPrimary"
-            android:layout_height="match_parent">-->
-<!--            <ImageView
-                android:id="@+id/backdrop"
-                android:fitsSystemWindows="true"
-                android:scaleType="centerCrop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>-->
-
-            <android.support.v7.widget.Toolbar
+        <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_height="?attr/actionBarSize"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                android:background="?attr/colorPrimary"
                 android:layout_width="match_parent"
-               />
-
-        <!--</android.support.design.widget.CollapsingToolbarLayout>-->
+        />
     </android.support.design.widget.AppBarLayout>
 
     <include layout="@layout/content_movie_detail"/>

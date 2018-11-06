@@ -34,10 +34,8 @@ public class MovieDetailActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle(mMovie.getTitle());
         setSupportActionBar(toolbar);
-        //CollapsingToolbarLayout toolbarLayout =  findViewById(R.id.toolbar_layout);
-        //toolbarLayout.setTitle(mMovie.getTitle());
-
-      //  backdrop = findViewById(R.id.backdrop);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         title = findViewById(R.id.showTitle);
         description = findViewById(R.id.movie_description);
         poster = findViewById(R.id.movie_poster);

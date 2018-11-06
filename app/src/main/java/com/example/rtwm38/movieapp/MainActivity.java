@@ -10,19 +10,16 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import com.example.rtwm38.movieapp.model.Movie;
 import com.example.rtwm38.movieapp.network.MovieService;
 import com.example.rtwm38.movieapp.ui.MovieAdapter;
-
 
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
-import retrofit2.Call;
 
 public class MainActivity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
@@ -41,7 +38,6 @@ public class MainActivity extends AppCompatActivity{
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //Make out the movie list
         getPopularMovies();
     }
     private void getPopularMovies() {
