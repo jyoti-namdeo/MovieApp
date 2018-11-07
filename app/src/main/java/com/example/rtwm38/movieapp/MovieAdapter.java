@@ -17,6 +17,9 @@ import com.example.rtwm38.movieapp.model.Movie;
 import com.example.rtwm38.movieapp.ui.MovieDetailActivity;
 import com.squareup.picasso.Picasso;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +30,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
     private LayoutInflater mInflater;
     private Context mContext;
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(MovieAdapter.class);
+
     public MovieAdapter(Context context) {
         this.mContext = context;
         this.mInflater = LayoutInflater.from(context);
     }
 
-    public class MovieViewHolder extends RecyclerView.ViewHolder {
-        public ImageView imageView;
-        public MovieViewHolder(View itemView)
+     class MovieViewHolder extends RecyclerView.ViewHolder {
+        private ImageView imageView;
+
+        private MovieViewHolder(View itemView)
         {
             super(itemView);
             imageView = itemView.findViewById(R.id.imageView);
@@ -114,15 +120,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieViewHol
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
-                String charString = charSequence.toString();
+                String filter = charSequence.toString();
                 FilterResults filterResults = new FilterResults();
-                if (charString.isEmpty()) {
+                if (filter.isEmpty()) {
                     filterResults.values = movieList;
                     filterResults.count = movieList.size();
                 } else {
                     List<Movie> filteredList = new ArrayList<>();
                     for (Movie movie : movieList) {
-                        if (movie.getTitle().toLowerCase().contains(charString.toLowerCase())) {
+                        if (movie.getTitle().toLowerCase().contains(filter.toLowerCase())) {
                             filteredList.add(movie);
                         }
                     }

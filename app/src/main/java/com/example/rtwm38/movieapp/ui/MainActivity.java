@@ -15,6 +15,10 @@ import com.example.rtwm38.movieapp.R;
 import com.example.rtwm38.movieapp.model.Movie;
 import com.example.rtwm38.movieapp.network.MovieServiceApi;
 import com.example.rtwm38.movieapp.MovieAdapter;
+import com.example.rtwm38.movieapp.util.MovieUtil;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import retrofit.Callback;
 import retrofit.RequestInterceptor;
@@ -26,6 +30,7 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView mRecyclerView;
     MovieAdapter mMovieAdapter;
     private SearchView searchView;
+    private static final Logger LOGGER = LoggerFactory.getLogger(MainActivity.class);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +48,11 @@ public class MainActivity extends AppCompatActivity{
     }
     private void getPopularMovies() {
         RestAdapter restAdapter = new RestAdapter.Builder()
-                .setEndpoint("https://api.themoviedb.org/3")
+                .setEndpoint(MovieUtil.base_url)
                 .setRequestInterceptor(new RequestInterceptor() {
                     @Override
                     public void intercept(RequestFacade request) {
-                        request.addEncodedQueryParam("api_key", "f7fc52869c0806cfbdaaf645bc55722e");
+                        request.addEncodedQueryParam("api_key", MovieUtil.api_key);
                     }
                 })
                 .setLogLevel(RestAdapter.LogLevel.FULL)
@@ -61,6 +66,7 @@ public class MainActivity extends AppCompatActivity{
 
             @Override
             public void failure(RetrofitError error) {
+                LOGGER.error(error.getMessage());
                 error.printStackTrace();
             }
         });
