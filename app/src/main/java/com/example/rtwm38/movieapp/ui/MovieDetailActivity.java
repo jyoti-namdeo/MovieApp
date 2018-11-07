@@ -34,14 +34,15 @@ public class MovieDetailActivity extends AppCompatActivity {
         }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitle(mMovie.getTitle());
+        //toolbar.setTitle(mMovie.getTitle());
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        title = findViewById(R.id.showTitle);
+        title = findViewById(R.id.movie_title);
         description = findViewById(R.id.movie_description);
         poster = findViewById(R.id.movie_poster);
+        title.setText(mMovie.getTitle());
         description.setText(mMovie.getDescription());
         Picasso.with(this)
                 .load(mMovie.getPoster())
